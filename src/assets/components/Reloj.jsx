@@ -9,11 +9,11 @@ function Reloj() {
     const [segundos, setSegundos] = useState(0);
 
     useEffect(() => {
-        setHoras(fecha.getHours());
+        setHoras(agregarCeros(fecha.getHours()));
     }, [])
 
     useEffect(() => {
-        setMinutos(fecha.getMinutes());
+        setMinutos(agregarCeros(fecha.getMinutes()));
 
         if (minutos == 59) {
             setHoras(horas + 1);
@@ -23,21 +23,18 @@ function Reloj() {
 
     setTimeout(() => {
         /* console.log(fecha.getSeconds()); */
-        setSegundos(fecha.getSeconds());
+        setSegundos(agregarCeros(fecha.getSeconds()));
 
         if (segundos == 59) {
             setMinutos(minutos + 1);
         }
 
-        /* if (segundos < 10) {
-            let numero = segundos;
-            let cero = '0';
-            let con = cero.concat(numero);
-            console.log(con);
-            setSegundos(con);
-        } */
-
     }, 1000);
+
+    const agregarCeros = n => {
+        if (n.toString().length < 2) return "0".concat(n);
+        return n;
+    }
 
     return (
         <div>
